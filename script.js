@@ -51,10 +51,6 @@ resetButton.addEventListener('click', ()=>{
     timer.innerHTML = '25:00';
 });
 
-
-
-
-
 function getDateDifferenceInSeconds(begin, end){
     return (end - begin) /1000;
 }
