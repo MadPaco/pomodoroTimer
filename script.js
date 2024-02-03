@@ -1,9 +1,12 @@
-let timer = document.querySelector('#timer');
-let startButton = document.querySelector('#start');
-let stopButton = document.querySelector('#stop');
-let resetButton = document.querySelector('#reset');
+const timer = document.querySelector('#timer');
+const startButton = document.querySelector('#start');
+const stopButton = document.querySelector('#stop');
+const resetButton = document.querySelector('#reset');
+
 const MILLISECONDS_PER_MINUTE = 60000;
-let pomodoroTime = 25;
+//declaring pomodoroTime as a let to add the option
+//to change the time via dropdown later down the road
+let pomodoroTime = 25; 
 let intervalID;
 let endTime;
 let savedDifference = null;
@@ -48,7 +51,7 @@ resetButton.addEventListener('click', ()=>{
     savedDifference = null;
     difference = null; 
     timerIsRunning = false;
-    timer.innerHTML = '25:00';
+    timer.innerHTML = pomodoroTime + ':00';
 });
 
 function getDateDifferenceInSeconds(begin, end){
