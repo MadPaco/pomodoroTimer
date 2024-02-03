@@ -2,11 +2,11 @@ const timer = document.querySelector('#timer');
 const startButton = document.querySelector('#start');
 const stopButton = document.querySelector('#stop');
 const resetButton = document.querySelector('#reset');
-
+const hornSound = new Audio('./media/sounds/fog-horn.mp3')
 const MILLISECONDS_PER_MINUTE = 60000;
 //declaring pomodoroTime as a let to add the option
 //to change the time via dropdown later down the road
-let pomodoroTime = 25; 
+let pomodoroTime = 0.1; 
 let intervalID;
 let endTime;
 let savedDifference = null;
@@ -33,6 +33,7 @@ startButton.addEventListener('click', ()=>{
             let seconds = difference % 60;
             timer.innerHTML = minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
             if (difference <= 0) {
+                playSound();
                 clearInterval(intervalID); 
                 timer.innerHTML = 'Time for a break.';
                 timerIsRunning = false;
@@ -56,4 +57,17 @@ resetButton.addEventListener('click', ()=>{
 
 function getDateDifferenceInSeconds(begin, end){
     return (end - begin) /1000;
+}
+
+let soundRepititions = 0;
+const maxSoundRepetitions = 2;
+
+function playSound() {
+    if (soundRepititions < maxSoundRepetitions) {
+        hornSound.play();
+        soundRepititions++;
+        hornSound.onended = () => {
+            playSound();
+        };
+    }
 }
