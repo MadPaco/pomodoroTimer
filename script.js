@@ -44,6 +44,13 @@ stopButton.addEventListener('click', ()=>{
     timerIsRunning = false;
 });
 
+resetButton.addEventListener('click', ()=>{
+    savedDifference = null;
+    difference = null; 
+    timerIsRunning = false;
+    timer.innerHTML = '25:00';
+});
+
 
 
 
