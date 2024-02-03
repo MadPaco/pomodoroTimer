@@ -6,12 +6,15 @@ const hornSound = new Audio('./media/sounds/fog-horn.mp3')
 const MILLISECONDS_PER_MINUTE = 60000;
 //declaring pomodoroTime as a let to add the option
 //to change the time via dropdown later down the road
-let pomodoroTime = 0.1; 
+let pomodoroTime = 25; 
 let intervalID;
 let endTime;
 let savedDifference = null;
 let difference = null; 
 let timerIsRunning = false;
+let soundRepititions = 0;
+let maxSoundRepetitions = 2;
+
 
 startButton.addEventListener('click', ()=>{
     if (!timerIsRunning){
@@ -59,8 +62,6 @@ function getDateDifferenceInSeconds(begin, end){
     return (end - begin) /1000;
 }
 
-let soundRepititions = 0;
-const maxSoundRepetitions = 2;
 
 function playSound() {
     if (soundRepititions < maxSoundRepetitions) {
