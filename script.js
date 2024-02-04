@@ -6,7 +6,7 @@ const hornSound = new Audio('./media/sounds/fog-horn.mp3')
 const MILLISECONDS_PER_MINUTE = 60000;
 //declaring pomodoroTime as a let to add the option
 //to change the time via dropdown later down the road
-let pomodoroTime = 25; 
+let pomodoroTime = 0.1; 
 let intervalID;
 let endTime;
 let savedDifference = null;
@@ -16,7 +16,37 @@ let soundRepititions = 0;
 let maxSoundRepetitions = 2;
 
 
-startButton.addEventListener('click', ()=>{
+startButton.addEventListener('click', initiateTimer);
+
+stopButton.addEventListener('click',stopTimer);
+
+resetButton.addEventListener('click',resetTimer);
+
+function getDateDifferenceInSeconds(begin, end){
+    return (end - begin) /1000;
+}
+
+function playSound() {
+    hornSound.play();
+    setTimeout(() => {
+        hornSound.play();
+      }, "3000");
+}
+
+function stopTimer(){
+    savedDifference = difference;
+    clearInterval(intervalID);
+    timerIsRunning = false;
+}
+
+function resetTimer(){
+    savedDifference = null;
+    difference = null; 
+    timerIsRunning = false;
+    timer.innerHTML = pomodoroTime + ':00';
+}
+
+function initiateTimer(){
     if (!timerIsRunning){
         timerIsRunning = true;
         let startTime = new Date();
@@ -42,33 +72,5 @@ startButton.addEventListener('click', ()=>{
                 timerIsRunning = false;
             }
         }, 1000);
-    }
-});
-
-stopButton.addEventListener('click', ()=>{
-    savedDifference = difference;
-    clearInterval(intervalID);
-    timerIsRunning = false;
-});
-
-resetButton.addEventListener('click', ()=>{
-    savedDifference = null;
-    difference = null; 
-    timerIsRunning = false;
-    timer.innerHTML = pomodoroTime + ':00';
-});
-
-function getDateDifferenceInSeconds(begin, end){
-    return (end - begin) /1000;
-}
-
-
-function playSound() {
-    if (soundRepititions < maxSoundRepetitions) {
-        hornSound.play();
-        soundRepititions++;
-        hornSound.onended = () => {
-            playSound();
-        };
     }
 }
